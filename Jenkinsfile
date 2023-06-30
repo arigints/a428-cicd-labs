@@ -1,6 +1,6 @@
 node {
     stage('Build') {
-        withDockerContainer(image: 'node:16-buster-slim', args: “-p '-p 3000:3000') {
+        withDockerContainer(image: 'node:16-buster-slim', args: '-p 3000:3000') {
             sh 'npm install'
         }
     }
