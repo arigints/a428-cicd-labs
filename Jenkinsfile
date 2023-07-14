@@ -11,6 +11,10 @@ node {
         stage('Deliver') { 
             sh './jenkins/scripts/deliver.sh'
             sleep(60)
+            sh "git clone -b react-app https://github.com/arigints/a428-cicd-labs"
+            sh "git add ."
+            sh "git commit --allow-empty --allow-empty-message -m ".""
+            sh "git push origin react-app:production"
             sh './jenkins/scripts/kill.sh'
         }
     }
