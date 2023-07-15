@@ -13,7 +13,7 @@ node {
     }
     stage('Deliver') { 
         if (env.SERVER_ROLE == "PRODUCTION") {
-            sh "sudo rm -r $HOME/a428-cicd-labs"
+            sh "rm -r /home/cloud/a428-cicd-labs"
             sh "git clone -b react-apps https://github.com/arigints/a428-cicd-labs.git"
             sh "cd /home/cloud/a428-cicd-labs/scripts && npm install"
             sh "sudo bash /home/cloud/a428-cicd-labs/jenkins/scripts/deliver.sh"
