@@ -12,7 +12,7 @@ node {
             sh './jenkins/scripts/deliver.sh'
             sleep(60)
             sh './jenkins/scripts/kill.sh'
-            docker.image('curlimages/curl').inside{
+            docker.image('docker.io/curlimages/curl:latest').inside{
                 sh "curl tokopedia.com"
             }
         }
