@@ -2,12 +2,11 @@ node {
     stage('Build') {
         sshagent(['production']) {
             sh "ssh -o StrictHostKeyChecking=no -l cloud 52.139.171.12 pwd"
-            sh "pwd"
-            sh "rm -r /home/cloud/a428-cicd-labs"
-            sh "git clone -b react-app https://github.com/arigints/a428-cicd-labs.git"
-            sh "cd /home/cloud/a428-cicd-labs && docker build -t newreactimg ."
-            sh "docker rm -f react-app && docker rmi react-app:latest -f && docker tag newreactimg:latest react-app:latest && docker rmi newreactimg:latest"
-            sh "docker run --name react-app -d -p 3001:3000 react-app"
+            sh "ssh -o StrictHostKeyChecking=no -l cloud 52.139.171.12 sudo rm -r /home/cloud/a428-cicd-labs"
+            sh "ssh -o StrictHostKeyChecking=no -l cloud 52.139.171.12 git clone -b react-app https://github.com/arigints/a428-cicd-labs.git"
+            sh "ssh -o StrictHostKeyChecking=no -l cloud 52.139.171.12 cd /home/cloud/a428-cicd-labs && docker build -t newreactimg ."
+            sh "ssh -o StrictHostKeyChecking=no -l cloud 52.139.171.12 docker rm -f react-app && docker rmi react-app:latest -f && docker tag newreactimg:latest react-app:latest && docker rmi newreactimg:latest"
+            sh "ssh -o StrictHostKeyChecking=no -l cloud 52.139.171.12 docker run --name react-app -d -p 3001:3000 react-app"
         }
         docker.image('node:16-buster-slim').inside('-p 3000:3000') {
             checkout scm
