@@ -11,20 +11,15 @@ node {
             //input message: 'Lanjutkan ke tahap deploy? (Click "Proceed" to continue)'
         }
     }
-    stage('Deliver') { 
-        if (env.SERVER_ROLE == "PRODUCTION") {
-            checkout scm
-            sh "npm install"
-            sh "./jenkins/scripts/deliver.sh"
-        } else {
-            docker.image('node:16-buster-slim').inside('-p 3000:3000') {
-                sh './jenkins/scripts/deliver.sh'
-                sleep(60)
-                sh './jenkins/scripts/kill.sh'
+    stage('Deploy') { 
+        docker.image('node:16-buster-slim').inside('-p 3000:3000') {
+            sh './jenkins/scripts/deliver.sh'
+            sleep(60)
+            sh './jenkins/scripts/kill.sh'
             }
-            docker.image('curlimages/curl').inside{
-                sh "curl -u ${env.JENKINS_PROD_USERNAME}:${env.JENKINS_PROD_PASSWORD} ${env.JENKINS_PROD_ENDPOINT}/job/react-apps/build?token=${env.JENKINS_PROD_TOKEN}"
-            }
+        docker.image('curlimages/curl').inside{
+            sh "curl -u ${env.JENKINS_PROD_USERNAME}:${env.JENKINS_PROD_PASSWORD} ${env.JENKINS_PROD_ENDPOINT}/job/app-rebuild/build?token=${env.JENKINS_PROD_TOKEN}"
         }
     }
+    
 }
