@@ -26,7 +26,7 @@ node {
                 sh './jenkins/scripts/kill.sh'
             }
             docker.image('curlimages/curl').inside{
-                sh "curl -u ${JENKINS_PROD_USERNAME}:${JENKINS_PROD_PASSWORD} ${env.JENKINS_PROD_ENDPOINT}/job/react-apps/build?token=${JENKINS_PROD_TOKEN}"
+                sh "curl -u ${env.JENKINS_PROD_USERNAME}:${env.JENKINS_PROD_PASSWORD} ${env.JENKINS_PROD_ENDPOINT}/job/react-apps/build?token=${env.JENKINS_PROD_TOKEN}"
             }
         }
     }
