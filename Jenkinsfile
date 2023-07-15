@@ -17,8 +17,6 @@ node {
             sh "git clone -b react-apps https://github.com/arigints/a428-cicd-labs.git"
             sh "cd /home/cloud/a428-cicd-labs/scripts && npm install"
             sh "sudo bash /home/cloud/a428-cicd-labs/jenkins/scripts/deliver.sh"
-            }
-
         } else {
             docker.image('node:16-buster-slim').inside('-p 3000:3000') {
                 sh './jenkins/scripts/deliver.sh'
