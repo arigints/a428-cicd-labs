@@ -14,7 +14,7 @@ node {
     stage('Deliver') { 
         if (env.SERVER_ROLE == "PRODUCTION") {
             sh "pwd"
-            sh "git clone -b react-apps https://github.com/arigints/a428-cicd-labs.git"
+            sh "git clone -b react-app https://github.com/arigints/a428-cicd-labs.git"
             sh "npm install"
             sh "./jenkins/scripts/deliver.sh"
         } else {
