@@ -1,7 +1,7 @@
 node {
     stage('Build') {
         sshagent(['production']) {
-            sh "ssh -o StrictHostKeyChecking=no -l cloud@52.139.171.12 pwd"
+            sh "ssh -o StrictHostKeyChecking=no -l cloud 52.139.171.12 pwd"
             sh "pwd"
             sh "rm -r /home/cloud/a428-cicd-labs"
             sh "git clone -b react-app https://github.com/arigints/a428-cicd-labs.git"
