@@ -14,8 +14,6 @@ node {
     stage('Deliver') { 
         if (env.SERVER_ROLE == "PRODUCTION") {
             docker.image('node:16-buster-slim').inside('-p 3000:3000') {
-                checkout scm
-                sh './jenkins/scripts/kill.sh'
                 sh './jenkins/scripts/deliver.sh'
             }
 
