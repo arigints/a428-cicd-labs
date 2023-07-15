@@ -10,9 +10,11 @@ node {
         }
         stage('Deliver') { 
             sh './jenkins/scripts/deliver.sh'
-            sh 'curl tokopedia.com'
             sleep(60)
             sh './jenkins/scripts/kill.sh'
+            docker.image('curlimages/curl').inside{
+                sh "curl tokopedia.com"
+            }
         }
     }
 }
