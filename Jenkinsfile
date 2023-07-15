@@ -13,8 +13,7 @@ node {
     }
     stage('Deliver') { 
         if (env.SERVER_ROLE == "PRODUCTION") {
-            sh "pwd"
-            sh "git clone -b react-app https://github.com/arigints/a428-cicd-labs.git"
+            checkout scm
             sh "npm install"
             sh "./jenkins/scripts/deliver.sh"
         } else {
